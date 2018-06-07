@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+@model PagedList.IPagedList<PaginationMVCApp.Models.Product>
+@using PagedList.Mvc
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Pagination</title>
+    <link rel="stylesheet"
+          href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container" style="margin-top:20px;">
+        <h3>product</h3>
+        <table class="table table-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Sub Total</th>
+            </tr>
+            @foreach (var product in Model)
+    {
+        <tr>
+            <td>@product.Id</td>
+            <td>@product.Name</td>
+            <td>@product.Status</td>
+            <td>@product.Price</td>
+            <td>@product.Quantity</td>
+            <td>@(product.Price * product.Quantity)</td>
+        </tr>
+}
+        </table>
+        <br />
+        @Html.PagedListPager(Model,page=>Url.Action("Index",new { page,pageSize=Model.PageSize }))
+        
+    </div>
+</body>
+</html>
